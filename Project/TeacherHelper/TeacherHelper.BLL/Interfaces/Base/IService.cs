@@ -10,7 +10,6 @@ namespace TeacherHelper.BLL.Interfaces.Base
     {
         void Create(T data);
         void Delete(string id);
-        void Delete(T data);
         T Read(string id);
         void Update(T data);
         List<T> ReadAll();

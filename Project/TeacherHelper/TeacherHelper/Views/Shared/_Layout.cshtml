@@ -29,6 +29,20 @@
             </div>
         </nav>
     </header>
+    <ul class="nav">
+        <li class="nav-item">
+            <a class="nav-link" aria-current="page" asp-controller="Home" asp-action="AddStudent">Add Student</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="AddTeacher">Add Teacher</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="AddGroup">Add Group</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" asp-controller="Home" asp-action="AddSubject">Add Subject</a>
+        </li>
+    </ul>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()

@@ -4,46 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeacherHelper.BLL.Interfaces;
+using TeacherHelper.BLL.Interfaces.Mapper;
 using TeacherHelper.BLL.ModelsDTO;
+using TeacherHelper.DAL.Interfaces;
 using TeacherHelper.DAL.Repositories;
 
 namespace TeacherHelper.BLL.Services
 {
     public class SubjectService : ISubjectService
     {
-        private SubjectRepository repository;
-        public SubjectService(SubjectRepository repository)
+        private ISubjectRepository repository;
+        private ISubjectMapper mapper;
+        public SubjectService(ISubjectRepository repository,ISubjectMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
         public void Create(SubjectDTO data)
         {
-            throw new NotImplementedException();
+            repository.Create(mapper.FromDTO(data));
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            repository.Delete(id);
         }
-
-        public void Delete(SubjectDTO data)
-        {
-            throw new NotImplementedException();
-        }
-
         public SubjectDTO Read(string id)
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.Read(id));
         }
 
         public List<SubjectDTO> ReadAll()
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.ReadAll());
         }
-
+        /// <summary>
+        /// Guesse will be some problems with updating references
+        /// </summary>
+        /// <param name="data"></param>
         public void Update(SubjectDTO data)
         {
-            throw new NotImplementedException();
+            repository.Update(mapper.FromDTO(data));
         }
     }
 }

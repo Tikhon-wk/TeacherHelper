@@ -10,5 +10,7 @@ namespace TeacherHelper.DAL.Models
     {
         public string Id { get; set; }
         public string Name { get; set; }
+
+        public virtual List<Teacher> Teachers { get; set; }
     }
 }

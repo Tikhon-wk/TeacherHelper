@@ -4,46 +4,46 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeacherHelper.BLL.Interfaces;
+using TeacherHelper.BLL.Interfaces.Mapper;
 using TeacherHelper.BLL.ModelsDTO;
+using TeacherHelper.DAL.Interfaces;
+using TeacherHelper.DAL.Models;
 using TeacherHelper.DAL.Repositories;
 
 namespace TeacherHelper.BLL.Services
 {
     public class GroupService : IGroupService
     {
-        private GroupRepository repository;
-        public GroupService(GroupRepository repository)
+        private IGroupRepository repository;
+        private IGroupMapper mapper;
+        public GroupService(IGroupRepository repository,IGroupMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
         public void Create(GroupDTO data)
         {
-            throw new NotImplementedException();
+            repository.Create(mapper.FromDTO(data));
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
-        }
-
-        public void Delete(GroupDTO data)
-        {
-            throw new NotImplementedException();
+            repository.Delete(id);
         }
 
         public GroupDTO Read(string id)
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.Read(id));
         }
 
         public List<GroupDTO> ReadAll()
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.ReadAll());
         }
 
         public void Update(GroupDTO data)
         {
-            throw new NotImplementedException();
+            repository.Update(mapper.FromDTO(data));
         }
     }
 }

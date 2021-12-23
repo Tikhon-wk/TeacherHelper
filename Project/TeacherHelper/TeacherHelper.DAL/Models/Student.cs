@@ -9,8 +9,10 @@ namespace TeacherHelper.DAL.Models
     public class Student
     {
         public string Id { get; set; }
+        public string Name { get; set; }
         public string Surname { get; set; }
 
+        public string GroupId { get; set; }
         public virtual Group Group { get; set; }
     }
 }

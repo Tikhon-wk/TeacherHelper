@@ -1,0 +1,25 @@
+﻿@using TeacherHelper.BLL.ModelsDTO
+@model List<GroupDTO>
+
+<form method="post">
+    <div class="mb-3">
+        <label for="studentName" class="form-label">Student's name</label>
+        <input type="text" class="form-control" id="studentName" name="studentName" />
+    </div>
+    <div class="mb-3">
+        <label for="studentSurname" class="form-label">Student's surname</label>
+        <input type="text" class="form-control" id="studentSurname" name="studentSurname">
+    </div>
+    <div class="mb-3">
+        <label for="select" class="form-label">Group</label>
+        <select id="groupId" name="groupId" class="form-select">
+            @{
+                foreach (var item in Model)
+                {
+                    <option value="@item.Id">@item.Name</option>
+                }
+            }
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

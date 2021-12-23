@@ -22,6 +22,10 @@ namespace TeacherHelper.DAL.Repositories
         {
             if (data == null)
                 throw new NullReferenceException();
+            Group group = context.Groups.Find(data.GroupId);
+            if (group == null)
+                throw new ArgumentException($"Cannot create student because group with id: {data.GroupId} doesn't exist");
+            data.Group = group;
             context.Students.Add(data);
             context.SaveChanges();
         }

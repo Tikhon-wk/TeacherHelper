@@ -4,46 +4,47 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TeacherHelper.BLL.Interfaces;
+using TeacherHelper.BLL.Interfaces.Mapper;
+using TeacherHelper.BLL.Mappers;
 using TeacherHelper.BLL.ModelsDTO;
+using TeacherHelper.DAL.Interfaces;
+using TeacherHelper.DAL.Models;
 using TeacherHelper.DAL.Repositories;
 
 namespace TeacherHelper.BLL.Services
 {
     public class StudentService : IStudentService
     {
-        private StudentRepository repository;
-        public StudentService(StudentRepository repository)
+        private IStudentRepository repository;
+        private IStudentMapper mapper;
+        public StudentService(IStudentRepository repository,IStudentMapper mapper)
         {
             this.repository = repository;
+            this.mapper = mapper;
         }
         public void Create(StudentDTO data)
         {
-            throw new NotImplementedException();
+            Student student = mapper.FromDTO(data);
+            repository.Create(student);
         }
 
         public void Delete(string id)
         {
-            throw new NotImplementedException();
+            repository.Delete(id);
         }
-
-        public void Delete(StudentDTO data)
-        {
-            throw new NotImplementedException();
-        }
-
         public StudentDTO Read(string id)
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.Read(id));
         }
 
         public List<StudentDTO> ReadAll()
         {
-            throw new NotImplementedException();
+            return mapper.ToDTO(repository.ReadAll());
         }
 
         public void Update(StudentDTO data)
         {
-            throw new NotImplementedException();
+            repository.Update(mapper.FromDTO(data));
         }
     }
 }
