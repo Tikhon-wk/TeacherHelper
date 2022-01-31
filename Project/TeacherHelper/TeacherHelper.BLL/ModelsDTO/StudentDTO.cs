@@ -11,6 +11,7 @@ namespace TeacherHelper.BLL.ModelsDTO
         public string Id { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
+        public double AvarageMark { get; set; }
         public string GroupId { get; set; }
     }
 }

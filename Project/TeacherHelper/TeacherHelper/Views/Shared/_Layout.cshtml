@@ -6,12 +6,13 @@
     <title>@ViewData["Title"] - TeacherHelper</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    
 </head>
-<body>
+<body class="w-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">TeacherHelper</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/icons8-знак-наруто-100.png"/>TeacherHelper</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -29,21 +30,7 @@
             </div>
         </nav>
     </header>
-    <ul class="nav">
-        <li class="nav-item">
-            <a class="nav-link" aria-current="page" asp-controller="Home" asp-action="AddStudent">Add Student</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="AddTeacher">Add Teacher</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="AddGroup">Add Group</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" asp-controller="Home" asp-action="AddSubject">Add Subject</a>
-        </li>
-    </ul>
-    <div class="container">
+    <div class="container mt-3 pt-3">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
@@ -56,7 +43,8 @@
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+   @* <script src="~/js/site.js" asp-append-version="true"></script>*@
+    <script src="~/js/site.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

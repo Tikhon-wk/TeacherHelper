@@ -18,6 +18,7 @@ namespace TeacherHelper.BLL.Mappers
                 Id = data.Id,
                 Name = data.Name,
                 Surname = data.Surname,
+                AvarageMark = data.AvarageMark,
                 GroupId = data.GroupId
             };
         }
@@ -29,6 +30,7 @@ namespace TeacherHelper.BLL.Mappers
                 Id = data.Id,
                 Name = data.Name,
                 Surname = data.Surname,
+                AvarageMark = data.AvarageMark,
                 GroupId = data.GroupId
             };
         }
@@ -36,20 +38,16 @@ namespace TeacherHelper.BLL.Mappers
         {
             List<Student> students = new List<Student>();
             foreach (var item in list)
-            {
                 students.Add(this.FromDTO(item));
-            }
-            return students;
+            return students != null ? students : throw new NullReferenceException();
         }
 
         public List<StudentDTO> ToDTO(List<Student> list)
         {
             List<StudentDTO> students = new List<StudentDTO>();
             foreach (var item in list)
-            {
                 students.Add(this.ToDTO(item));
-            }
-            return students;
+            return students != null ? students : throw new NullReferenceException();
         }
     }
 }

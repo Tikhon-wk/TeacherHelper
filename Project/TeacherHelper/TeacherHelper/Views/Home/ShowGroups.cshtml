@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TeacherHelper.BLL.ModelsDTO.GroupDTO>
+
+@{
+    ViewData["Title"] = "ShowGroups";
+}
+
+<h1>Groups</h1>
+
+<p>
+    <a class="btn btn-dark" asp-controller="Home" asp-action="AddGroup">Add group</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                №
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+
+    </tbody>
+</table>

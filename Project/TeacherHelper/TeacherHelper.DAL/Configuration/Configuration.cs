@@ -24,6 +24,7 @@ namespace TeacherHelper.DAL.Configuration
             services.AddScoped<IGroupRepository, GroupRepository>();
             services.AddScoped<ISubjectRepository, SubjectRepository>();
             services.AddScoped<ITeacherRepository, TeacherRepository>();
+            services.AddScoped<IWorkRepository, WorkRepository>();
         }
         private static string GetConnectionString(string jsonFileName, string connectionStringName)
         {

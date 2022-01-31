@@ -8,9 +8,7 @@ using TeacherHelper.BLL.ModelsDTO;
 
 namespace TeacherHelper.BLL.Interfaces
 {
-    public interface ITeacherService : IService<TeacherDTO>
+    public interface IWorkService : IService<WorkDTO>
     {
-        void AddSubject(string teacherId, string subjectId);
-        List<SubjectDTO> GetSubjects(string teacherId);
     }
 }

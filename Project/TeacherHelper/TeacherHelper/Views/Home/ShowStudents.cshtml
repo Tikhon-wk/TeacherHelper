@@ -1,0 +1,62 @@
+﻿@model IEnumerable<TeacherHelper.Models.ShowStudentViewModel>
+
+@{
+    ViewData["Title"] = "ShowStudents";
+}
+
+<h1>Students</h1>
+
+<p>
+    <a class="btn btn-dark" asp-controller="Home" asp-action="AddStudent">Add student</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>№</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Группа</th>
+            <th>Средний балл</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @{
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Student.Name</td>
+                    <td>@item.Student.Surname</td>
+                    <td>@item.Group.Name</td>
+                    <td>@item.Student.AvarageMark</td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+                i++;
+            }
+        }
+    </tbody>
+</table>
+
+@*<table class="table">
+
+        @{
+            int i = 1;
+            foreach (var item in Model)
+            {
+                <tr>
+                    <td>@i</td>
+                    <td>@item.Student.Name</td>
+                    <td>@item.Student.Surname</td>
+                    <td>@item.Group.Name</td>
+                    <td>@item.Student.AvarageMark</td>
+                </tr>
+                i++;
+            }
+        }
+    </table>*@ 

@@ -1,8 +1,78 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<form method="post" asp-controller="Home" asp-action="Index">
+    <div class="btn-group container" role="group" aria-label="Basic radio toggle button group">
+        <div class="row">
+            <div class="col-sm">
+                <input type="radio" class="btn-check" name="action" style="visibility:hidden" id="radio1" autocomplete="off" value="Student" />
+                <label id="label" class="btn btn-outline-dark border-0 w-75 h-75 p-0" style="border-radius: 5000px" for="radio1"><a style="color: #343a40" asp-controller="Home" asp-action="ShowStudents"><img class="w-100 h-100 p-3" style="border-radius:1000px;border:3px solid;" src="~/img/pngwing.com (1).png" /></a></label>
+            </div>
+            <div class="col-sm">
+                <input type="radio" class="btn-check" name="action" style="visibility:hidden" id="radio2" autocomplete="off" value="Teacher" />
+                <label id="label" class="btn btn-outline-dark border-0 w-75 h-75 p-0" style="border-radius: 5000px;" for="radio2"><a style="color: #343a40" asp-controller="Home" asp-action="ShowTeachers"><img class="w-100 h-100 p-3" style="border-radius:1000px;border:3px solid;" src="~/img/pngwing.com (2).png" /></a></label>
+            </div>
+            <div class="col-sm">
+                <input type="radio" class="btn-check" style="visibility:hidden" name="action" id="radio3" autocomplete="off" value="Group" />
+                <label id="label" class="btn btn-outline-dark border-0 w-75 h-75 p-0" style="border-radius: 5000px;" for="radio3"><a style="color: #343a40" asp-controller="Home" asp-action="ShowGroups"><img class="w-100 h-100 p-3" style="border-radius:1000px;border:3px solid;" src="~/img/group.png"/></a></label>
+            </div>
+            <div class="col-sm">
+                <input type="radio" class="btn-check" style="visibility:hidden" name="action" id="radio4" autocomplete="off" value="Subject" />
+                <label id="label" class="btn btn-outline-dark border-0 w-75 h-75 p-0" style="border-radius: 5000px;" for="radio4"><a style="color: #343a40" asp-controller="Home" asp-action="ShowSubjects"><img class="w-100 h-100 p-3" style="border-radius:100px;border:3px solid;" src="~/img/if-spell-scroll-2913111_88822.png" /></a></label>
+            </div>
+        </div>
+    </div>
+    @*<div class="row">
+            <div class="col-sm">
+                <input class="mx-auto" id="actionName" name="actionName" type="submit" asp-route-id="Show" value="Show" />
+            </div>
+            <div class="col-sm">
+                <input class="mx-auto" id="actionName" name="actionName" type="submit" asp-route-id="Add" value="Add" />
+            </div>
+        </div>*@
+</form>
+@*Dont tougle subjects before we tougle other radio button*@
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@*<div class="btn-group btn-group-toggle container" data-toggle="buttons">
+        <div class="row">
+            <div class="col-sm">
+                <label class="btn btn  border-0 w-75 p-0"  style="border-radius:1000px">
+                    <input type="radio" name="options" id="option1" style="visibility:hidden" autocomplete="off" checked> <img class="w-100 " style="border-radius:1000px;border:3px solid;" src="~/img/pngwing.com (1).png" />
+                </label>
+            </div>
+            <div class="col-sm">
+                <label class="btn btn  boder-0 w-75 p-0" style="border-radius:1000px">
+                    <input type="radio" name="options" id="option2" style="visibility:hidden" autocomplete="off"> <img class="w-100 " style="border-radius:1000px;border:3px solid;" src="~/img/pngwing.com (2).png" />
+                </label>
+            </div>
+            <div class="col-sm">
+                <label class="btn btn  border-0 w-75 p-0"  style="border-radius:1000px">
+                    <input type="radio" name="options" id="option3" style="visibility:hidden" autocomplete="off"> <img class="w-100 " style="border-radius:1000px;border:3px solid;" src="/img/pngwing.com.png" />
+                </label>
+            </div>
+            <div></div>
+        </div>
+
+    </div>*@
+
+@*<div class="container mt-5">
+        <div name="showButtons" class="row">
+            <div class="col-sm"><img class="w-75 p-3 mt-3" style="border-radius:100px;border:3px solid;" src="~/img/pngwing.com (1).png" /></a></div>
+            <div class="col-sm"> <img class="w-75 p-3 mt-3" style="border-radius:100px;border:3px solid;" src="~/img/pngwing.com (2).png" /></a></div>
+            <div class="col-sm"> <img class="w-75 p-3 mt-3" style="border-radius:100px;border:3px solid;" src="/img/pngwing.com.png" /></a></div>
+            <div class="col-sm"> <img class="w-75 p-3 mt-3" style="border-radius:100px;border:3px solid;" src="~/img/if-spell-scroll-2913111_88822.png" /></a></div>
+        </div>
+        <div name="addButtons" class="row mt-2">
+            <div class="col-sm"><a asp-controller="Home" asp-action="ShowSubjects" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px">Show</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="ShowTeachers" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px ">Show</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="ShowGroups" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px ">Show</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="ShowStudents" class="ml-4k text-decoration-none btn btn-dark btn-lg" style="color: white;border-radius:100px">Show</a></div>
+        </div>
+        <div name="addButtons" class="row mt-2">
+            <div class="col-sm"><a asp-controller="Home" asp-action="AddSubject" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px">Add</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="AddTeacher" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px ">Add</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="AddGroup" class="ml-4 text-decoration-none btn btn-dark btn-lg" style="color: white; border-radius: 100px ">Add</a></div>
+            <div class="col-sm"><a asp-controller="Home" asp-action="AddStudent" class="ml-4k text-decoration-none btn btn-dark btn-lg" style="color: white;border-radius:100px">Add</a></div>
+        </div>
+    </div>*@
+

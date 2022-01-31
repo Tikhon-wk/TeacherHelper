@@ -21,11 +21,13 @@ namespace TeacherHelper.BLL.Configuration
             services.AddScoped(typeof(IGroupService),typeof(GroupService));
             services.AddScoped(typeof(ITeacherService),typeof(TeacherService));
             services.AddScoped(typeof(ISubjectService),typeof(SubjectService));
+            services.AddScoped(typeof(IWorkService), typeof(WorkService));
 
             services.AddScoped(typeof(IStudentMapper), typeof(StudentMapper));
             services.AddScoped(typeof(ISubjectMapper), typeof(SubjectMapper));
             services.AddScoped(typeof(ITeacherMapper), typeof(TeacherMapper));
             services.AddScoped(typeof(IGroupMapper), typeof(GroupMapper));
+            services.AddScoped(typeof(IWorkMapper), typeof(WorkMapper));
         }
     }
 }

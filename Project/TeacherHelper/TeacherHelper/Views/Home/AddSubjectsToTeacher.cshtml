@@ -1,0 +1,19 @@
+﻿@using TeacherHelper.Models
+@model AddSubjectsToTeacherViewModel
+
+<form asp-controller="Home" asp-action="AddSubjectsToTeacher">
+    <h2>@Model.TeacherToString()</h2>
+    <ul>
+        @foreach (var item in Model.Subjects)
+        {
+            <li>
+                <input class="form-check-input" type="checkbox" id="subjects" name="subjects" value="@item.Id" />
+                <label>@item.Name</label>
+            </li>
+        }
+    </ul>
+    <input id="subjectsIds" name="subjectsIds" type="text" style="visibility:visible;width:0px;height:0px;border:none" />
+    <input id="teacherId" name="teacherId" type="text" style="visibility:visible;width:0px;height:0px;border:none" value="@Model.Teacher.Id" />
+    <br />
+    <input class="btn btn-dark" type="submit" value="Submit" />
+</form>

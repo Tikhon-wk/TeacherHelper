@@ -3,15 +3,16 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TeacherHelper.DAL.Enums;
 
 namespace TeacherHelper.DAL.Models
 {
-    public class Subject
+    public class Work
     {
         public string Id { get; set; }
-        public string Name { get; set; }
-        public int Hours { get; set; }
+        public WorkType Type { get; set; }
+        public int Result { get; set; }
 
-        public virtual List<Teacher> Teachers { get; set; } = new List<Teacher>();
+        public virtual List<Student> Students { get; set; }
     }
 }

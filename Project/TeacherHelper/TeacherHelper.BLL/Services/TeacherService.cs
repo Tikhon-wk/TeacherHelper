@@ -15,11 +15,19 @@ namespace TeacherHelper.BLL.Services
     {
         private ITeacherRepository repository;
         private ITeacherMapper mapper;
-        public TeacherService(ITeacherRepository repository,ITeacherMapper mapper)
+        private ISubjectMapper subjectMapper;
+        public TeacherService(ITeacherRepository repository,ITeacherMapper mapper,ISubjectMapper subjectMapper)
         {
             this.repository = repository;
             this.mapper = mapper;
+            this.subjectMapper = subjectMapper;
         }
+
+        public void AddSubject(string teacherId, string subjectId)
+        {
+            repository.AddSubject(teacherId, subjectId);
+        }
+
         public void Create(TeacherDTO data)
         {
             repository.Create(mapper.FromDTO(data));
@@ -30,6 +38,10 @@ namespace TeacherHelper.BLL.Services
             repository.Delete(id);
         }
 
+        public List<SubjectDTO> GetSubjects(string teacherId)
+        {
+            return subjectMapper.ToDTO(repository.GetSubjects(teacherId));
+        }
 
         public TeacherDTO Read(string id)
         {

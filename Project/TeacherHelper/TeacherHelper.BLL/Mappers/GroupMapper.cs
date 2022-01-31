@@ -27,7 +27,7 @@ namespace TeacherHelper.BLL.Mappers
             {
                 groups.Add(this.FromDTO(item));
             }
-            return groups;
+            return groups != null ? groups : throw new NullReferenceException();
         }
 
         public GroupDTO ToDTO(Group data)
@@ -46,7 +46,7 @@ namespace TeacherHelper.BLL.Mappers
             {
                 groups.Add(this.ToDTO(item));
             }
-            return groups;
+            return groups != null ? groups : throw new NullReferenceException();
         }
     }
 }

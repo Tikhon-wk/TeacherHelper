@@ -16,7 +16,8 @@ namespace TeacherHelper.BLL.Mappers
             return new Subject
             {
                 Id = data.Id,
-                Name = data.Name
+                Name = data.Name,
+                Hours = data.Hours
             };
         }
 
@@ -25,7 +26,7 @@ namespace TeacherHelper.BLL.Mappers
             List<Subject> subjects = new List<Subject>();
             foreach (var item in list)
                 subjects.Add(this.FromDTO(item));
-            return subjects;
+            return subjects != null ? subjects : throw new NullReferenceException();
         }
 
         public SubjectDTO ToDTO(Subject data)
@@ -33,7 +34,8 @@ namespace TeacherHelper.BLL.Mappers
             return new SubjectDTO
             {
                 Id = data.Id,
-                Name = data.Name
+                Name = data.Name,
+                Hours = data.Hours
             };
         }
 
@@ -42,7 +44,7 @@ namespace TeacherHelper.BLL.Mappers
             List<SubjectDTO> subjects = new List<SubjectDTO>();
             foreach (var item in list)
                 subjects.Add(this.ToDTO(item));
-            return subjects;
+            return subjects != null ? subjects : throw new NullReferenceException();
         }
     }
 }

@@ -8,10 +8,7 @@ using TeacherHelper.DAL.Models;
 
 namespace TeacherHelper.DAL.Interfaces
 {
-    public interface ITeacherRepository : IRepository<Teacher>
+    public interface IWorkRepository:IRepository<Work>
     {
-        void AddSubject(string teacherId, string subjectId);
-        void AddGroup(string teacherId, string groupId);
-        List<Subject> GetSubjects(string teacherId);
     }
 }
