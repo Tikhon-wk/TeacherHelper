@@ -1,7 +1,10 @@
-﻿<form method="post">
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;  
+
+<form method="post">
     <div class="mb-3">
-        <label for="groupName" class="form-label">Group's name</label>
+        <label for="groupName" class="form-label">@localizer["Group's name"]</label>
         <input type="text" class="form-control" id="groupName" name="groupName" />
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">@localizer["Add"]</button>
 </form>

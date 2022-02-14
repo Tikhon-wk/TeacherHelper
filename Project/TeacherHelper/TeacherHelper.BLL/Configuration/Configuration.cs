@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,7 @@ namespace TeacherHelper.BLL.Configuration
             services.AddScoped(typeof(ITeacherMapper), typeof(TeacherMapper));
             services.AddScoped(typeof(IGroupMapper), typeof(GroupMapper));
             services.AddScoped(typeof(IWorkMapper), typeof(WorkMapper));
+
         }
     }
 }

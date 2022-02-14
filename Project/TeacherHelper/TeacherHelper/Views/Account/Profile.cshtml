@@ -1,0 +1,61 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+
+@using TeacherHelper.ViewModels
+@model ProfileViewModel
+<div style="position:absolute;left:43%">
+    <div class="m-auto">
+        <a class="mb-4" asp-action="RedactPhoto" asp-controller="Home"><img class="mb-4" src="/img/naruto-icon-14688.png" /></a>
+        <table class="table col-4">
+            <tr>
+                <td>@localizer["Name"]: @Model.User.UserName</td>
+            </tr>
+            <tr>
+                <td>@localizer["Lastname"]: @Model.User.UserLastname</td>
+            </tr>
+            <tr>
+                <td>Email: @Model.User.Email</td>
+            </tr>
+        </table>
+        <a class="btn btn-dark" asp-controller="Account" asp-action="RedactProfile">@localizer["Redact"]</a>
+        @*This shit doesn't refresh roles*@
+        @if (!User.IsInRole("Teacher") || !User.IsInRole("Student"))
+        {
+            @if (User.IsInRole("Admin"))
+            {
+                <a class="btn btn-dark" asp-action="AddRole"
+                   asp-controller="Account"
+                   data-ajax="true"
+                   data-ajax-update="#addRoleToMe"
+                   data-ajax-method="get"
+                   data-ajax-mode="replace">@localizer["AddRoleToMe"]</a>
+                <a class="btn btn-dark" asp-action="AddRoleToOther"
+                   asp-controller="Account"
+                   data-ajax="true"
+                   data-ajax-update="#addRoleToOther"
+                   data-ajax-method="get"
+                   data-ajax-mode="replace">@localizer["AddRoleToOther"]</a>
+                <div id="addRoleToMe">
+
+                </div>
+                <div id="addRoleToOther">
+
+                </div>
+            }
+            else
+            {
+
+                <a class="btn btn-dark"
+                   asp-controller="Account"
+                   asp-action="RequestToGetRole"
+                   data-ajax="true"
+                   data-ajax-method="get"
+                   data-ajax-mode="replace"
+                   data-ajax-update="#getRole">Make request to get role</a>
+                <div id="getRole">
+
+                </div>
+            }
+        }
+    </div>
+</div>

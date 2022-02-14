@@ -1,0 +1,21 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization;
+@inject IViewLocalizer localizer;
+
+@model TeacherHelper.ViewModels.AddRoleViewModel
+
+<form method="post" asp-action="AddRole" asp-controller="Account">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <label asp-for="RoleName" class="control-label">@localizer["Roles"]</label>
+    <select asp-for="RoleName">
+        @if (!User.IsInRole("Teacher"))
+        {
+            <option value="Teacher">@localizer["Teacher"]</option>
+        }
+        @if (!User.IsInRole("Student"))
+        {
+            <option value="Student">@localizer["Student"]</option>
+        }
+    </select>
+    <span asp-validation-for="RoleName" class="text-danger"></span>
+    <input type="submit" class="btn btn-dark" value="@localizer["Add"]" />
+</form>

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
@@ -9,6 +12,7 @@ using System.Threading.Tasks;
 using TeacherHelper.BLL.Interfaces;
 using TeacherHelper.BLL.ModelsDTO;
 using TeacherHelper.Models;
+using TeacherHelper.ViewModels;
 
 namespace TeacherHelper.Controllers
 {
@@ -30,24 +34,6 @@ namespace TeacherHelper.Controllers
         {
             return View();
         }
-        ///// <summary>
-        ///// very very very Shit code
-        ///// </summary>
-        ///// <param name="action"></param>
-        ///// <param name="actionName"></param>
-        ///// <returns></returns>
-        //[HttpPost]
-        //public IActionResult Index(string action, string actionName)
-        //{
-        //    string result = "";
-        //    if (actionName == "Show")
-        //        result = actionName + action + "s";
-        //    else
-        //        result = actionName + action;
-        //    if (action == "Index")
-        //        return RedirectToAction("Index");
-        //    return RedirectToAction(result);
-        //}
 
         public IActionResult Privacy()
         {
@@ -59,11 +45,21 @@ namespace TeacherHelper.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
+        // Add modal window error
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddStudent()
         {
-            return View(groupService.ReadAll().OrderBy(g => g.Name).ToList());
+            if(User.IsInRole("Admin"))
+            {
+                List<GroupDTO> groups = groupService.ReadAll();
+                if (groups.Count != 0)
+                {
+                    return View(groups.OrderBy(g => g.Name).ToList());
+                }
+                return RedirectToAction("ShowStudentError");
+            }
+            return Error();
         }
         [HttpPost]
         public IActionResult AddStudent(string studentName, string studentSurname, double studentAvarageMark, string groupId)
@@ -78,10 +74,15 @@ namespace TeacherHelper.Controllers
             });
             return RedirectToAction("ShowStudents");
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddGroup()
         {
-            return View();
+            if (User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            return Error();
         }
         [HttpPost]
         public IActionResult AddGroup(string groupName)
@@ -93,10 +94,15 @@ namespace TeacherHelper.Controllers
             });
             return RedirectToAction("ShowGroups");
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddTeacher()
         {
-            return View();
+            if(User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            return Error();
         }
         [HttpPost]
         public IActionResult AddTeacher(string teacherName, string teacherSurname)
@@ -109,10 +115,15 @@ namespace TeacherHelper.Controllers
             });
             return RedirectToAction("ShowTeachers");
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddSubject()
         {
-            return View();
+            if(User.IsInRole("Admin"))
+            {
+                return View();
+            }
+            return Error();
         }
         [HttpPost]
         public IActionResult AddSubject(string subjectName, int subjectHours)
@@ -123,30 +134,35 @@ namespace TeacherHelper.Controllers
                 Name = subjectName,
                 Hours = subjectHours
             });
-            return Redirect("Index");
+            return Redirect("ShowSubjects");
         }
+        //[Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult AddSubjectsToTeacher(string id)
         {
-            TeacherDTO teacher = teacherService.Read(id);
-            List<SubjectDTO> teacherSubjects = teacherService.GetSubjects(id);
-            List<SubjectDTO> allowToAdd = new List<SubjectDTO>();
-            foreach (var item in subjectService.ReadAll())
+            if(User.IsInRole("Admin"))
             {
-                if (teacherSubjects.FirstOrDefault(s => s.Id == item.Id) == null)
+                TeacherDTO teacher = teacherService.Read(id);
+                List<SubjectDTO> teacherSubjects = teacherService.GetSubjects(id);
+                List<SubjectDTO> allowToAdd = new List<SubjectDTO>();
+                foreach (var item in subjectService.ReadAll())
                 {
-                    allowToAdd.Add(item);
+                    if (teacherSubjects.FirstOrDefault(s => s.Id == item.Id) == null)
+                    {
+                        allowToAdd.Add(item);
+                    }
                 }
-            }
-            if (allowToAdd.Count != 0)
-            {
-                return View(new AddSubjectsToTeacherViewModel
+                if (allowToAdd.Count != 0)
                 {
-                    Subjects = allowToAdd,
-                    Teacher = teacher
-                });
+                    return View(new AddSubjectsToTeacherViewModel
+                    {
+                        Subjects = allowToAdd,
+                        Teacher = teacher
+                    });
+                }
+                return RedirectToAction("ShowTeachers");
             }
-            return RedirectToAction("ShowTeachers");
+            return Error();
         }
         [HttpPost]
         public IActionResult AddSubjectsToTeacher(string teacherId = "", string subjectsIds = "")
@@ -185,6 +201,26 @@ namespace TeacherHelper.Controllers
         public IActionResult ShowGroups()
         {
             return View(groupService.ReadAll());
+        }
+
+        public IActionResult ShowStudentError()
+        {
+            return View();
+        }
+        public IActionResult Photo()
+        {
+            
+            return PartialView();
+        }
+        [HttpGet]
+        public IActionResult ChangeLanguage(string cultures,string returnUrl)
+        {
+            HttpContext.Response.Cookies.Append(
+                CookieRequestCultureProvider.DefaultCookieName,
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(cultures)),
+                new CookieOptions { Expires = DateTime.Now.AddYears(1)}
+                );
+            return Redirect(returnUrl);
         }
     }
 }

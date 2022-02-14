@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Localization;
+@using Microsoft.Extensions.Options
+@using Microsoft.AspNetCore.Mvc;
+@using Microsoft.AspNetCore.Builder;
+@using Microsoft.AspNetCore.Mvc.Localization;
+
+@inject IViewLocalizer localizer; 
+@inject IOptions<RequestLocalizationOptions> locOptions;
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -6,13 +15,13 @@
     <title>@ViewData["Title"] - TeacherHelper</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
-    
+
 </head>
 <body class="w-100">
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/icons8-знак-наруто-100.png"/>TeacherHelper</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"><img src="~/img/icons8-знак-наруто-100.png" />TeacherHelper</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -25,13 +34,46 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="nav-item">
+                            @{
+                                var cultureFeature = Context.Features.Get<IRequestCultureFeature>();
+                                var culturesItems = locOptions.Value.SupportedUICultures;
+                            }
+                            <form method="get" asp-controller="Home" asp-action="ChangeLanguage">
+                                <select id="cultures" name="cultures" onchange="document.forms[0].submit()">
+                                    <option>@localizer["Language"]</option>
+                                    @*<option>@cultureFeature.RequestCulture.Culture.DisplayName</option>*@
+                                    @foreach (var item in culturesItems)
+                                    {
+                                        <option value="@item.Name">@item.DisplayName</option>
+                                    }
+                                </select>
+                                <input id="returnUrl" name="returnUrl" style="visibility:hidden;" value="@Context.Request.Path" />
+                            </form>
+                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <a class="nav-link text-dark" style="position:absolute;right:27vw;" asp-area="" asp-controller="Account" asp-action="Logout">Logout</a>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" style="position:absolute;right:27vw;" asp-area="" asp-controller="Account" asp-action="Login">Login</a>
+                            </li>
+                        }
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-action="Profile" asp-controller="Account">Profile</a>
+                            </li>
+                        }
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <div class="container mt-3 pt-3">
-        <main role="main" class="pb-3">
+        <main role="main" class="mt-5">
             @RenderBody()
         </main>
     </div>
@@ -41,10 +83,12 @@
             &copy; 2021 - TeacherHelper - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-   @* <script src="~/js/site.js" asp-append-version="true"></script>*@
-    <script src="~/js/site.js"></script>
+    <script src="~/lib/jquery/dist/bundle.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>
+@*<script src="~/lib/jquery/dist/jquery.min.js"></script>*@
+@*<script src="~/lib/jquery/dist/bundle.js" />*@
+<!--<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>-->
+@* <script src="~/js/site.js" asp-append-version="true"></script>*@
+@*<script src="~/js/site.js"></script>*@

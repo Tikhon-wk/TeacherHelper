@@ -5,55 +5,63 @@
 }
 
 <h1>Teachers</h1>
+@if (User.IsInRole("Admin"))
+{
+    <p>
+        <a class="btn btn-dark" asp-controller="Home" asp-action="AddTeacher">Add teacher</a>
+    </p>
+}
+@{
+    if (Model.Count() != 0)
+    {
 
-<p>
-    <a class="btn btn-dark" asp-controller="Home" asp-action="AddTeacher">Add teacher</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                №
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Surname)
-            </th>
-            <th></th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @{
-            int i = 1;
-            foreach (var item in Model)
-            {
+        <table class="table">
+            <thead>
                 <tr>
-                    <td>@i</td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Surname)
-                    </td>
-                    <td>
-                        <a class="nav-link btn btn-dark" asp-controller="Home" asp-route-id="@item.Id" asp-action="AddSubjectsToTeacher">Add subjects to teacher</a>
-                    </td>
-                    <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                    </td>
+                    <th>
+                        №
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Surname)
+                    </th>
+                    <th></th>
+                    <th></th>
                 </tr>
-                i++;
-            }
-        }
+            </thead>
+            <tbody>
+                @{
+                    int i = 1;
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>@i</td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Surname)
+                            </td>
+                            <td>
+                                <a class="nav-link btn btn-dark" asp-controller="Home" asp-route-id="@item.Id" asp-action="AddSubjectsToTeacher">Add subjects to teacher</a>
+                            </td>
+                            <td>
+                                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                            </td>
+                        </tr>
+                        i++;
+                    }
+                }
 
 
-    </tbody>
-</table>
+            </tbody>
+        </table>
+    }
+}
 @*@using TeacherHelper.BLL.ModelsDTO
     @model List<TeacherDTO>
 
